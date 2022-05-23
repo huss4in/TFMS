@@ -1,0 +1,30 @@
+version: 0.2
+
+env:
+  variables:
+    NODE_OPTIONS: "--max-old-space-size=6144"
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 14
+    commands:
+      - git config --global url."https://".insteadOf git://
+
+  pre_build:
+    commands:
+      - yarn install
+
+  build:
+    commands:
+      - yarn build
+
+artifacts:
+  base-directory: build
+  files:
+    - "**/*"
+
+cache:
+  paths:
+    - "node_modules/**/*"
+    - "*/**/node_modules/**/*"
